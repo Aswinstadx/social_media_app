@@ -1,96 +1,32 @@
-import React from "react";
-import { Ionicons } from "@expo/vector-icons";
-import { createAppContainer } from "react-navigation";
-import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
+import { View, Text } from "react-native";
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./src/screens/HomeScreen";
-import UserScreen from "./src/screens/UserScreen";
-import SettingScreen from "./src/screens/SettingScreen";
-import { Entypo } from "@expo/vector-icons";
-import ChatScreen from "./src/screens/ChatScreen";
-import NotificationScreen from "./src/screens/NotificationScreen";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import ProfileScreen from "./src/screens/ProfileScreen";
+import LandingPage from "./src/pages/LandingPage";
+import LoginPage from "./src/pages/LoginPage";
 
-const TabNavigator = createMaterialBottomTabNavigator(
-  {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        tabBarLabel: "Home",
-        tabBarIcon: (tabInfo) => (
-          <Entypo
-            name="home"
-            color={tabInfo.tintColor}
-            size={tabInfo.focused ? 26 : 20}
-          />
-        ),
-      },
-    },
-    Chat: {
-      screen: ChatScreen,
-      navigationOptions: {
-        tabBarLabel: "Message",
-        tabBarIcon: (tabInfo) => (
-          <Ionicons
-            name="chatbox-outline"
-            color={tabInfo.tintColor}
-            size={tabInfo.focused ? 26 : 20}
-          />
-        ),
-      },
-    },
-    Notification: {
-      screen: NotificationScreen,
-      navigationOptions: {
-        tabBarLabel: "Notification",
-        tabBarIcon: (tabInfo) => (
-          <MaterialIcons
-            name="notifications"
-            color={tabInfo.tintColor}
-            size={tabInfo.focused ? 26 : 20}
-          />
-        ),
-      },
-    },
-    User: {
-      screen: UserScreen,
-      navigationOptions: {
-        tabBarLabel: "User",
-        tabBarIcon: (tabInfo) => (
-          <Entypo
-            name="home"
-            color={tabInfo.tintColor}
-            size={tabInfo.focused ? 26 : 20}
-          />
-        ),
-      },
-    },
-    Profile: {
-      screen: ProfileScreen,
-      navigationOptions: {
-        tabBarLabel: "Account",
-        tabBarIcon: (tabInfo) => (
-          <Entypo
-            name="home"
-            color={tabInfo.tintColor}
-            size={tabInfo.focused ? 26 : 20}
-          />
-        ),
-      },
-    },
-  },
-  {
-    initialRouteName: "Home",
-    barStyle: { backgroundColor: "#FFF" },
-  }
-);
+const Stack = createStackNavigator();
 
-const Navigator = createAppContainer(TabNavigator);
+const App = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
 
-export default function App() {
   return (
-    <Navigator>
-      <HomeScreen />
-    </Navigator>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName={loggedIn ? "Home" : "SignIn"}>
+        {!loggedIn ? (
+          <>
+            <Stack.Screen name="SignIn" component={LoginPage} />
+            <Stack.Screen name="Crowdly" component={LandingPage} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Home" component={HomeScreen} />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
+
+export default App;

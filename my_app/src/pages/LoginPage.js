@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/Feather";
 
-const LoginPage = ({ setLoggedIn }) => {
+const LoginPage = ({ setLoggedIn, navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -40,6 +40,7 @@ const LoginPage = ({ setLoggedIn }) => {
     if (valid) {
       // Perform login logic here
       setLoggedIn(true);
+      navigation.navigate("Home");
       // Navigate to the Home screen upon successful login if needed
     }
   };
@@ -88,6 +89,12 @@ const LoginPage = ({ setLoggedIn }) => {
         ) : null}
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ marginTop: 10 }}
+          onPress={() => navigation.navigate("Register")}
+        >
+          <Text>Create new Account ?</Text>
         </TouchableOpacity>
       </View>
     </View>

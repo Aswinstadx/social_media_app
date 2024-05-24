@@ -52,9 +52,6 @@ const posts = [
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Crowdly</Text>
-      </View>
       <FlatList
         data={posts}
         keyExtractor={(item) => item.id}
@@ -66,7 +63,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 40,
+    paddingTop: 0,
   },
   header: {
     padding: 15,
@@ -78,7 +75,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "purple",
     fontWeight: "bold",
-    fontFamily:'sans-serif'
+    fontFamily: "sans-serif",
   },
   emptyContainer: {
     flex: 1,
